@@ -33,4 +33,12 @@ contract UsernameBasedAccountFactory is BaseAccountFactory {
         emit Registered(username,account);
 
     }
+
+    function getAccountForUsername(string calldata username) public view returns (address) {
+        return accountOfUsername[username];
+    }
+
+    function isUsernameAvailable(string calldata username) public view returns (bool) {
+        return accountOfUsername[username] == address (0);
+    }
 }
