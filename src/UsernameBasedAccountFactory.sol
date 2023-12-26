@@ -20,15 +20,15 @@ contract UsernameBasedAccountFactory is BaseAccountFactory {
     function _initializeAccount(
         address _account,
         address _admin,
-        bytes calldata
+        bytes calldata _data
     ) internal override {
-        UsernameBasedAccount(payable(_account)).initialize(_admin, "");
+        UsernameBasedAccount(payable(_account)).initialize(_admin, _data);
     }
 
     function onRegistered(string calldata username  ) external {
         address account = msg.sender;
         require(this.isRegistered(account),"Not an account");
-        require(accountOfUsername[username] == address (0), "Username taken...");
+        require(accountOfUsername[username] == address (0), "UsernameBasedAccountFactory: Username already registered");
         accountOfUsername[username] = account;
         emit Registered(username,account);
 
